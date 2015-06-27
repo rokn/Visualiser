@@ -1,6 +1,4 @@
-#include <stdio.h>
-
-int main () {
+int main(int pesho, char peshko 2) {
     int a = 5;
     int b = 3;
 
@@ -8,7 +6,8 @@ int main () {
         printf ("TRUE");
     }
     else {
-        printf ("FAUSE");
+        printf ("FALSE");
     }
-return 0;
+    
+	return 0;
 }

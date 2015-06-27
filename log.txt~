@@ -1,0 +1,26 @@
+parser.c: In function ‘readFile’:
+parser.c:16:5: warning: passing argument 1 of ‘ListAdd’ from incompatible pointer type [enabled by default]
+     ListAdd(&contents, line);
+     ^
+In file included from parser.h:3:0,
+                 from parser.c:1:
+List.h:34:6: note: expected ‘struct List *’ but argument is of type ‘struct List **’
+ void ListAdd(List*, void*);
+      ^
+parser.c: In function ‘ParseFile’:
+parser.c:23:2: warning: passing argument 1 of ‘ListInit’ from incompatible pointer type [enabled by default]
+  ListInit(&contents, sizeof(char*));
+  ^
+In file included from parser.h:3:0,
+                 from parser.c:1:
+List.h:29:6: note: expected ‘struct List *’ but argument is of type ‘struct List (*)[10000]’
+ void ListInit(List*,int);
+      ^
+parser.c:26:2: warning: passing argument 1 of ‘ListPeekFront’ from incompatible pointer type [enabled by default]
+  ListPeekFront(&contents, output);
+  ^
+In file included from parser.h:3:0,
+                 from parser.c:1:
+List.h:38:6: note: expected ‘struct List *’ but argument is of type ‘struct List (*)[10000]’
+ void ListPeekFront(List*, void*);
+      ^

@@ -1,0 +1,37 @@
+parser.c: In function ‘ParseFile’:
+parser.c:65:3: warning: passing argument 2 of ‘strcat’ from incompatible pointer type [enabled by default]
+   strcat(currentToken, &ch);
+   ^
+In file included from List.h:7:0,
+                 from parser.h:3,
+                 from parser.c:1:
+/usr/include/string.h:137:14: note: expected ‘const char * __restrict__’ but argument is of type ‘int *’
+ extern char *strcat (char *__restrict __dest, const char *__restrict __src)
+              ^
+parser.c:80:6: warning: passing argument 2 of ‘strcat’ from incompatible pointer type [enabled by default]
+      strcat(function.name, &ch);
+      ^
+In file included from List.h:7:0,
+                 from parser.h:3,
+                 from parser.c:1:
+/usr/include/string.h:137:14: note: expected ‘const char * __restrict__’ but argument is of type ‘int *’
+ extern char *strcat (char *__restrict __dest, const char *__restrict __src)
+              ^
+parser.c:92:6: warning: passing argument 2 of ‘strcat’ from incompatible pointer type [enabled by default]
+      strcat(currentToken, &ch);
+      ^
+In file included from List.h:7:0,
+                 from parser.h:3,
+                 from parser.c:1:
+/usr/include/string.h:137:14: note: expected ‘const char * __restrict__’ but argument is of type ‘int *’
+ extern char *strcat (char *__restrict __dest, const char *__restrict __src)
+              ^
+parser.c:102:8: warning: passing argument 2 of ‘strcat’ from incompatible pointer type [enabled by default]
+        strcat(variable.name, &ch);
+        ^
+In file included from List.h:7:0,
+                 from parser.h:3,
+                 from parser.c:1:
+/usr/include/string.h:137:14: note: expected ‘const char * __restrict__’ but argument is of type ‘int *’
+ extern char *strcat (char *__restrict __dest, const char *__restrict __src)
+              ^
