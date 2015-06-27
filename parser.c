@@ -42,6 +42,27 @@ Ptype isType(char currentToken[50])
 	return NONE;
 }
 
+PblockType isBlock(char currentToken[50])
+{
+	if(!strcmp(currentToken, "if"))
+	{
+		return IF;
+	}
+	if(!strcmp(currentToken, "for"))
+	{
+		return FOR;
+	}
+	if(!strcmp(currentToken, "while"))
+	{
+		return WHILE;
+	}
+	if(!strcmp(currentToken, "switch"))
+	{
+		return SWITCH;
+	}
+	return BLOCKNONE;
+}
+
 void resetString(char *str)
 {
 	memset(str,'\0',sizeof(str));
@@ -55,26 +76,25 @@ List ParseFile(const char *filename)
 	printf("%s\n", contents);
 	List functions;
 	ListInit(&functions, sizeof(Pfunction));
-	char currentToken[50];
+	char currentToken[100];
 	resetString(currentToken);
 	int i;
 	Pfunction function;
 	Ptype type;
+	Pblock block;
 	Pvariable variable;
 	for (i = 0; i < strlen(contents); ++i)
 	{
 		int ch = contents[i];
 		strcat(currentToken, &ch);
-
+		type = isType(currentToken);
+		int b;
 		if(outsideFunction)
 		{
-			type = isType(currentToken);
-
 			if(type != NONE)
 			{
 				function.type = type;
 				resetString(function.name);
-				int b;
 
 				for (b = 1; contents[i+b]!='('; ++b)
 				{
@@ -90,7 +110,6 @@ List ParseFile(const char *filename)
 				i += b;
 				ListInit(&function.arguments, sizeof(Pvariable));
 				ListInit(&function.variables, sizeof(Pvariable));
-				i++;
 				resetString(currentToken);
 				
 				while(contents[i] != ')')
@@ -117,20 +136,42 @@ List ParseFile(const char *filename)
 
 					i++;
 				}
-				i+=2;
+				resetString(currentToken);
+				i+=1;
 				outsideFunction = false;				
 			}
 		}
 		else
 		{
-			type = isType(currentToken);
+			PblockType blockType = isBlock(currentToken);
 			if(type != NONE)
 			{
 				variable.type = type;
-				for(b = 1; contents[i+b] != ';' || contents[i+b] != '=';b++)
+				for(b = 1; contents[i+b] != ';' && contents[i+b] != '=';b++)
 				{
-					int ch = content[i+b];
+					int ch = contents[i+b];
 					strcat(variable.name,&ch);
+				}
+				i+=b;
+				ListAdd(&function.variables,&variable);
+				resetString(currentToken);
+
+			}
+			else if(blockType != BLOCKNONE)
+			{
+				i+=2;
+				resetString(currentToken);
+				switch(blockType)
+				{
+					case IF:
+						while(contents[i] != ')')
+						{
+							int ch = contents[i];
+							strcat(block.condition,&ch);
+							i++;
+						}
+						printf("%s\n",block.condition);
+						break;
 				}
 			}
 		}

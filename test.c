@@ -1,6 +1,6 @@
-int main(int pesho, char peshko 2) {
-    int a = 5;
-    int b = 3;
+int main() {
+    int a;
+    int b;
 
     if (a>b) {
         printf ("TRUE");

@@ -15,7 +15,8 @@ typedef enum {
 	IF,
 	SWITCH,
 	WHILE,
-	FOR
+	FOR,
+	BLOCKNONE
 }PblockType;
 
 typedef struct{
@@ -35,6 +36,8 @@ typedef struct {
 typedef struct{
 	PblockType blockType;
 	List blocks;
+	List variables;
+	char condition[100];
 }Pblock;
 
 List ParseFile(const char *filename);

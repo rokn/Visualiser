@@ -13,4 +13,4 @@ OBJ_NAME = program
 # this is the compile line
 
 all : $(OBJS) 
-	$(CC) $(OBJS) -o $(OBJ_NAME) 2> $(ERROR_LOG) && ./$(OBJ_NAME)
+	$(CC) $(OBJS) -w -o $(OBJ_NAME) 2> $(ERROR_LOG) && ./$(OBJ_NAME)
