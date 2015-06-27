@@ -160,6 +160,10 @@
 		"side_bar_visible": false,
 		"status_bar_visible": false
 	},
+	"expanded_folders":
+	[
+		"/home/niki/Documents/C/Visualiser"
+	],
 	"file_history":
 	[
 		"/home/nikolay/Desktop/Pesho/test.c",
@@ -291,7 +295,7 @@
 							"auto_name": "#ifndef AGE_GENERICS",
 							"syntax": "Packages/C++/C++.tmLanguage"
 						},
-						"translation.x": -0.0,
+						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},

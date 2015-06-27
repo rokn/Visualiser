@@ -1,12 +1,15 @@
 
 #include "List.h"
 
+#define LINE_LENGTH 100
+#define FILE_LENGTH 10000
+
 int main() 
 {
 	FILE *ifp;
 	char *mode = "r";
-	char line[100];
-	char program[10000];
+	char line[LINE_LENGTH];
+	char program[FILE_LENGTH];
 	char inputFileName[] = "test.c";
 
 	ifp = fopen(inputFileName, mode);
