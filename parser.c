@@ -3,7 +3,7 @@
 #define MAX_CONTENT_LENGTH 10000
 #define MAX_LINE_LENGTH 100
 
-void readFile(const char *filename, char contents[MAX_CONTENT_LENGTH])
+/*void readFile(const char *filename, char contents[MAX_CONTENT_LENGTH])
 {
 	FILE *ifp;
 	char *mode = "r";
@@ -15,7 +15,7 @@ void readFile(const char *filename, char contents[MAX_CONTENT_LENGTH])
 	{
 	  	strcat(contents,line);
 	}
-}
+}*/
 
 List ParseFile(const char *filename)
 {
@@ -23,3 +23,5 @@ List ParseFile(const char *filename)
 	readFile(filename, contents);
 	printf("%s\n", contents);
 }
+
+//test
