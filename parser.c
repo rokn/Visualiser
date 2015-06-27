@@ -68,12 +68,11 @@ void resetString(char *str)
 	memset(str,'\0',sizeof(str));
 }
 
-List ParseFile(const char *filename)
+Pfunction ParseFile(const char *filename)
 {
 	bool outsideFunction = true;
 	char contents[MAX_CONTENT_LENGTH];
 	readFile(filename, contents);
-	printf("%s\n", contents);
 	List functions;
 	ListInit(&functions, sizeof(Pfunction));
 	char currentToken[100];
@@ -110,6 +109,7 @@ List ParseFile(const char *filename)
 				i += b;
 				ListInit(&function.arguments, sizeof(Pvariable));
 				ListInit(&function.variables, sizeof(Pvariable));
+				ListInit(&function.blocks, sizeof(Pblock));
 				resetString(currentToken);
 				
 				while(contents[i] != ')')
@@ -164,22 +164,24 @@ List ParseFile(const char *filename)
 				switch(blockType)
 				{
 					case IF:
+						block.blockType = blockType;
 						while(contents[i] != ')')
 						{
 							int ch = contents[i];
 							strcat(block.condition,&ch);
 							i++;
 						}
-						printf("%s\n",block.condition);
+						ListAdd(&function.blocks, &block);
+						resetString(block.condition);
 						break;
 				}
+				i+=1;
 			}
 		}
 	}
 
-	printf("%d name : %s\n",function.type, function.name);
 	// int mainPos = findMain(contents) + 7;
-
+	return function;
 }
 
 // Ptype checkStartOfType(char ch)

@@ -40,6 +40,6 @@ typedef struct{
 	char condition[100];
 }Pblock;
 
-List ParseFile(const char *filename);
+Pfunction ParseFile(const char *filename);
 
 #endif

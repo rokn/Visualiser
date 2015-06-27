@@ -3,7 +3,13 @@
 
 int main() 
 {
-	ParseFile("test.c");
-
+	Pfunction function = ParseFile("test.c");
+	int i;
+	Pblock block;
+	for (i = 0; i < ListGetSize(&function.blocks); ++i)
+	{
+		ListPeekAt(&function.blocks, &block, i);
+		printf("condition : %s\n",block.condition);
+	}
 	return 0;
 }
