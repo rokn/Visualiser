@@ -10,5 +10,6 @@ int main () {
     else {
         printf ("FAUSE");
     }
-return 0;
+    
+	return 0;
 }
