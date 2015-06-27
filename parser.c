@@ -1,10 +1,13 @@
 #include "parser.h"
 
-void readFile(const char *filename, char contents[10000])
+#define MAX_CONTENT_LENGTH 10000
+#define MAX_LINE_LENGTH 100
+
+void readFile(const char *filename, char contents[MAX_CONTENT_LENGTH])
 {
 	FILE *ifp;
 	char *mode = "r";
-	char line[100];
+	char line[MAX_LINE_LENGTH];
 
 	ifp = fopen(filename, mode);
 
@@ -16,7 +19,7 @@ void readFile(const char *filename, char contents[10000])
 
 List ParseFile(const char *filename)
 {
-	char contents[10000];
+	char contents[MAX_CONTENT_LENGTH];
 	readFile(filename, contents);
 	printf("%s\n", contents);
 
