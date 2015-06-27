@@ -19,4 +19,7 @@ List ParseFile(const char *filename)
 	char contents[10000];
 	readFile(filename, contents);
 	printf("%s\n", contents);
+
 }
+
+int findNextType()
