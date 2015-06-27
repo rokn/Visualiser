@@ -1,0 +1,394 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"aw",
+				"awesomeThoughts"
+			],
+			[
+				"sta",
+				"stack_pop"
+			],
+			[
+				"cur",
+				"curly_brackets"
+			],
+			[
+				"in",
+				"input"
+			],
+			[
+				"st",
+				"stack_destroy"
+			],
+			[
+				"is",
+				"isOperator"
+			],
+			[
+				"MAX",
+				"MAX_STRING_SIZE"
+			],
+			[
+				"stack",
+				"stack_push"
+			],
+			[
+				"tr",
+				"transform_expression"
+			],
+			[
+				"inc",
+				"include"
+			],
+			[
+				"vec",
+				"vector	std::vector"
+			],
+			[
+				"ve",
+				"vector	std::vector"
+			],
+			[
+				"c",
+				"current_token"
+			],
+			[
+				"char",
+				"character"
+			],
+			[
+				"bra",
+				"brackets"
+			],
+			[
+				"brack",
+				"bracket_counter"
+			],
+			[
+				"brea",
+				"bracket_counter"
+			],
+			[
+				"brac",
+				"bracket_counter"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "List.c",
+			"settings":
+			{
+				"buffer_size": 4036,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "List.h",
+			"settings":
+			{
+				"buffer_size": 857,
+				"line_ending": "Unix",
+				"name": "#ifndef AGE_GENERICS"
+			}
+		}
+	],
+	"build_system": "Packages/C++/C++ Single File.sublime-build",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"Packages/C++/C++ Single File.sublime-build",
+					""
+				],
+				[
+					"Packages/C++/C++ Single File.sublime-build",
+					"Run"
+				]
+			],
+			[
+				"Packages/C++/C++ Single File.sublime-build",
+				"Run"
+			]
+		]
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"last_filter": "install",
+		"selected_items":
+		[
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"termin",
+				"Preferences: Terminal Key Bindings – Default"
+			],
+			[
+				"termina",
+				"Preferences: Terminal Key Bindings – Default"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 449.0
+	},
+	"console":
+	{
+		"height": 139.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = 'eb2297e1a458f27d836c04bb0cbaf282' + 'd0e7a3098092775ccb37ca9d6b2e4b7d'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/home/nikolay/Desktop/Pesho/test.c",
+		"/home/nikolay/Desktop/Pesho/makefile",
+		"/home/nikolay/Desktop/test.c",
+		"/home/nikolay/Desktop/makefile",
+		"/home/nikolay/.config/sublime-text-3/Packages/Terminal/Default (Linux).sublime-keymap",
+		"/home/nikolay/.config/sublime-text-3/Packages/User/Terminal.sublime-settings",
+		"/home/nikolay/Desktop/Pesho/Helsys3/AGE/AGE_List.c",
+		"/home/nikolay/Documents/Github/C/Stack/stack.c",
+		"/home/nikolay/Documents/Github/c-programming-2014-2015-homework/A/21_Nikolay_Danailov/homework_calculator/calculator.c",
+		"/home/nikolay/Documents/Github/C++/ClientTest/main.cpp",
+		"/home/nikolay/Documents/Github/c-programming-2014-2015-homework/A/21_Nikolay_Danailov/homework_calculator/brackets.c",
+		"/home/nikolay/Documents/Github/Javascript/frontend-nanodegree-resume/index.html",
+		"/home/nikolay/Documents/Github/Javascript/frontend-nanodegree-resume/js/resumeBuilder.js",
+		"/home/nikolay/Documents/Github/c-programming-2014-2015-homework/A/21_Nikolay_Danailov/homework_calculator/brackets",
+		"/home/nikolay/Documents/Github/c-programming-2014-2015-homework/A/21_Nikolay_Danailov/homework_calculator/calculator",
+		"/home/nikolay/Documents/Github/c-programming-2014-2015-homework/A/21_Nikolay_Danailov/homework_calculator/Calculator/br",
+		"/home/nikolay/Documents/Github/c-programming-2014-2015-homework/A/21_Nikolay_Danailov/homework_calculator/stack.h",
+		"/home/nikolay/Documents/Github/c-programming-2014-2015-homework/A/21_Nikolay_Danailov/homework_calculator/stack.c",
+		"/home/nikolay/Documents/Github/c-programming-2014-2015-homework/A/21_Nikolay_Danailov/homework_calculator/Calculator/stack.h.gch",
+		"/home/nikolay/Documents/Github/c-programming-2014-2015-homework/A/21_Nikolay_Danailov/homework_vector/vector.c",
+		"/home/nikolay/Documents/Github/c-programming-2014-2015-homework/A/21_Nikolay_Danailov/homework_vector/stack.h",
+		"/home/nikolay/Documents/Github/c-programming-2014-2015-homework/A/21_Nikolay_Danailov/homework_vector/stack.c"
+	],
+	"find":
+	{
+		"height": 25.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"AGE_",
+			"int",
+			"prin",
+			"v.",
+			"v,",
+			"v->",
+			"v)",
+			" v",
+			"index",
+			"vector"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"",
+			"s.",
+			"s,",
+			"s->",
+			"s)",
+			" s",
+			"top",
+			"stack"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "List.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4036,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								239,
+								239
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "List.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 857,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								302,
+								302
+							]
+						],
+						"settings":
+						{
+							"auto_name": "#ifndef AGE_GENERICS",
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": -0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 25.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 112.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "Visualiser.sublime-project",
+	"replace":
+	{
+		"height": 64.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 392.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"STARTING_SIZE"
+			]
+		],
+		"width": 392.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 150.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
