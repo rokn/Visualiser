@@ -12,6 +12,16 @@ typedef enum {
 }Ptype;
 
 typedef enum {
+	INITVAR,
+	ASSIGNMENT,
+	BLOCK,
+	BLOCKEND,
+	INPUT,
+	OUTPUT,
+	NOACTION
+}Paction;
+
+typedef enum {
 	IF,
 	SWITCH,
 	WHILE,
@@ -22,7 +32,18 @@ typedef enum {
 typedef struct{
 	Ptype type;
 	char name[50];
-} Pvariable;
+}Pvariable;
+
+typedef struct pblock Pblock;
+struct pblock{
+	PblockType blockType;
+	Pblock *parent;
+	List blocks;
+	List variables;
+	char condition[100];
+	List actions;
+	List assignments;
+};
 
 typedef struct {
 	Ptype type;
@@ -30,16 +51,11 @@ typedef struct {
 	List arguments;
 	List variables;
 	List blocks;
+	List actions;
+	List assignments;	
 	bool isMain;
 }Pfunction;
 
-typedef struct{
-	PblockType blockType;
-	List blocks;
-	List variables;
-	char condition[100];
-}Pblock;
-
-Pfunction ParseFile(const char *filename);
+Pfunction ParseFile(const char *filename,Pfunction *);
 
 #endif

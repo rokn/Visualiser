@@ -2,6 +2,7 @@
 
 #define MAX_CONTENT_LENGTH 10000
 #define MAX_LINE_LENGTH 1000
+#define TOKEN_MAX 100
 
 void readFile(const char *filename, char contents[MAX_CONTENT_LENGTH])
 {
@@ -15,9 +16,19 @@ void readFile(const char *filename, char contents[MAX_CONTENT_LENGTH])
 	{
  	  	strcat(contents,line);
 	}
+	fclose(ifp);
 }
 
-Ptype isType(char currentToken[50])
+bool isAssignment(char currentToken[TOKEN_MAX])
+{
+	if (strstr(currentToken, "=") != NULL && strstr(currentToken, ";") != NULL) 
+	{
+    	return true;
+	}
+	return false;
+}
+
+Ptype isType(char currentToken[TOKEN_MAX])
 {
 	if(!strcmp(currentToken, "int"))
 	{
@@ -42,7 +53,7 @@ Ptype isType(char currentToken[50])
 	return NONE;
 }
 
-PblockType isBlock(char currentToken[50])
+PblockType isBlock(char currentToken[TOKEN_MAX])
 {
 	if(!strcmp(currentToken, "if"))
 	{
@@ -68,20 +79,20 @@ void resetString(char *str)
 	memset(str,'\0',sizeof(str));
 }
 
-Pfunction ParseFile(const char *filename)
+Pfunction ParseFile(const char *filename, Pfunction *function)
 {
 	bool outsideFunction = true;
 	char contents[MAX_CONTENT_LENGTH];
 	readFile(filename, contents);
 	List functions;
 	ListInit(&functions, sizeof(Pfunction));
-	char currentToken[100];
+	char currentToken[TOKEN_MAX];
 	resetString(currentToken);
 	int i;
-	Pfunction function;
 	Ptype type;
-	Pblock block;
+	Pblock *block = NULL;
 	Pvariable variable;
+	Paction action;
 	for (i = 0; i < strlen(contents); ++i)
 	{
 		int ch = contents[i];
@@ -92,24 +103,26 @@ Pfunction ParseFile(const char *filename)
 		{
 			if(type != NONE)
 			{
-				function.type = type;
-				resetString(function.name);
+				function->type = type;
+				resetString(function->name);
 
 				for (b = 1; contents[i+b]!='('; ++b)
 				{
 					int ch = contents[i+b];					
-					strcat(function.name, &ch);
+					strcat(function->name, &ch);
 				}
 
-				if(!strcmp(function.name, "main"))
+				if(!strcmp(function->name, "main"))
 				{
-					function.isMain = true;
+					function->isMain = true;
 				}
 
 				i += b;
-				ListInit(&function.arguments, sizeof(Pvariable));
-				ListInit(&function.variables, sizeof(Pvariable));
-				ListInit(&function.blocks, sizeof(Pblock));
+				ListInit(&function->arguments, sizeof(Pvariable));
+				ListInit(&function->variables, sizeof(Pvariable));
+				ListInit(&function->actions, sizeof(Paction));
+				ListInit(&function->assignments, sizeof(char[50]));
+				ListInit(&function->blocks, sizeof(Pblock));
 				resetString(currentToken);
 				
 				while(contents[i] != ')')
@@ -129,7 +142,7 @@ Pfunction ParseFile(const char *filename)
 						}
 
 						i+=b;
-						ListAdd(&function.arguments, &variable);
+						ListAdd(&function->arguments, &variable);
 						resetString(variable.name);
 						resetString(currentToken);
 					}
@@ -147,41 +160,108 @@ Pfunction ParseFile(const char *filename)
 			if(type != NONE)
 			{
 				variable.type = type;
+				resetString(variable.name);
 				for(b = 1; contents[i+b] != ';' && contents[i+b] != '=';b++)
 				{
 					int ch = contents[i+b];
 					strcat(variable.name,&ch);
 				}
-				i+=b;
-				ListAdd(&function.variables,&variable);
-				resetString(currentToken);
 
+				i+=b;
+				ListAdd(&function->variables,&variable);
+				resetString(currentToken);
+				action = INITVAR;
+				ListAdd(&function->actions, &action);
+				if(contents[i]=='=')
+				{
+					char assignment[50];
+					resetString(assignment);
+					strcat(assignment, variable.name);
+					strcat(assignment, " = ");
+					i++;
+
+					while(contents[i]!=';')
+					{
+						ch = contents[i];
+						strcat(assignment, &ch);
+						i++;
+					}
+
+					ListAdd(&function->assignments,&assignment);
+					action = ASSIGNMENT;
+					ListAdd(&function->actions, &action);
+				}
 			}
 			else if(blockType != BLOCKNONE)
 			{
 				i+=2;
 				resetString(currentToken);
+				block = (Pblock*)malloc(sizeof(Pblock));
+				ListInit(&block->variables, sizeof(Pvariable));
+				ListInit(&block->actions, sizeof(Paction));
+				ListInit(&block->assignments, sizeof(char[50]));
+				ListInit(&block->blocks, sizeof(Pblock));
+				block->blockType = blockType;
+
 				switch(blockType)
 				{
-					case IF:
-						block.blockType = blockType;
+					case IF:						
 						while(contents[i] != ')')
 						{
 							int ch = contents[i];
-							strcat(block.condition,&ch);
+							strcat(block->condition,&ch);
 							i++;
-						}
-						ListAdd(&function.blocks, &block);
-						resetString(block.condition);
+						}						
+						action = BLOCK;
+						ListAdd(&function->actions, &action);
 						break;
 				}
+
 				i+=1;
 			}
+			else if(!strcmp(currentToken,"}"))
+			{
+				if(block != NULL)
+				{
+					ListAdd(&function->blocks, block); // <---------------  SHIBAN AMPERSANT 
+					action = BLOCKEND;
+					ListAdd(&function->actions, &action);
+					resetString(block->condition);
+					
+					resetString(currentToken);
+					block = NULL;
+				}
+				else
+				{
+					return;
+				}
+			}
+			else if(isAssignment(currentToken))
+			{				
+				if(block != NULL)
+				{					
+					ListAdd(&block->assignments, &currentToken);					
+					action = ASSIGNMENT;
+					ListAdd(&block->actions, &action);					
+				}
+				else
+				{
+					ListAdd(&function->assignments, &currentToken);
+					action = ASSIGNMENT;
+					ListAdd(&function->actions, &action);
+				}
+
+				resetString(currentToken);
+			}
 		}
+		// printf("%s\n", currentToken);
+		// if(block != NULL)
+		// {
+			
+		// }
 	}
 
 	// int mainPos = findMain(contents) + 7;
-	return function;
 }
 
 // Ptype checkStartOfType(char ch)
