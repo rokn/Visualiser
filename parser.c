@@ -59,6 +59,8 @@ List ParseFile(const char *filename)
 	resetString(currentToken);
 	int i;
 	Pfunction function;
+	Ptype type;
+	Pvariable variable;
 	for (i = 0; i < strlen(contents); ++i)
 	{
 		int ch = contents[i];
@@ -66,7 +68,7 @@ List ParseFile(const char *filename)
 
 		if(outsideFunction)
 		{
-			Ptype type = isType(currentToken);
+			type = isType(currentToken);
 
 			if(type != NONE)
 			{
@@ -80,10 +82,15 @@ List ParseFile(const char *filename)
 					strcat(function.name, &ch);
 				}
 
+				if(!strcmp(function.name, "main"))
+				{
+					function.isMain = true;
+				}
+
 				i += b;
 				ListInit(&function.arguments, sizeof(Pvariable));
+				ListInit(&function.variables, sizeof(Pvariable));
 				i++;
-				Pvariable variable;
 				resetString(currentToken);
 				
 				while(contents[i] != ')')
@@ -103,16 +110,28 @@ List ParseFile(const char *filename)
 						}
 
 						i+=b;
-						ListAdd(&function.arguments, variable);
+						ListAdd(&function.arguments, &variable);
 						resetString(variable.name);
 						resetString(currentToken);
 					}
 
 					i++;
 				}
-
-				break;
+				i+=2;
 				outsideFunction = false;				
+			}
+		}
+		else
+		{
+			type = isType(currentToken);
+			if(type != NONE)
+			{
+				variable.type = type;
+				for(b = 1; contents[i+b] != ';' || contents[i+b] != '=';b++)
+				{
+					int ch = content[i+b];
+					strcat(variable.name,&ch);
+				}
 			}
 		}
 	}
