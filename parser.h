@@ -7,7 +7,8 @@ typedef enum {
 	CHAR,
 	FLOAT,
 	DOUBLE,
-	LONG
+	LONG,
+	NONE
 }Ptype;
 
 typedef enum {
@@ -28,6 +29,7 @@ typedef struct {
 	List arguments;
 	List variables;
 	List blocks;
+	bool isMain;
 }Pfunction;
 
 typedef struct{
