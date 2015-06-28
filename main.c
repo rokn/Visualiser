@@ -33,7 +33,7 @@ char* GraphAssignment(FILE *ofp, char *assignment, char *block, int counter)
 	memset(name,'\0',sizeof(name)); 
 	//strcat(name, block); 
 	sprintf(name, "%s_assignment%d", block,counter);
-	fprintf(ofp, "subgraph variable_int {node[shape=ellipse,color=pink4, label=\"%s\"]; %s }",assignment,name);
+	fprintf(ofp, "subgraph variable_int {node[shape=ellipse,color=pink4, label=\"%s\"]; %s; }",assignment,name);
 	//strcat(name, counter); 
 	return name;
 }
@@ -44,7 +44,9 @@ char* GraphBlock(FILE *ofp, Pblock *blockStructure, char *block, int counter)
 	memset(name,'\0',sizeof(name)); 
 	//strcat(name, block); 
 	sprintf(name, "%s_block%d", block,counter);
-	fprintf(ofp, "subgraph if {rank = same; node[shape=diamond,color=skyblue3, label=\" %s \"]; %s",blockStructure->condition,name);
+	// printf("%s,%s,%d\n\n",name, block, counter);
+	printf("%s\n",name);
+	fprintf(ofp, "subgraph if {rank = same; node[shape=diamond,color=skyblue3, label=\"%s\"]; %s;}",blockStructure->condition,name);
 	//strcat(name, counter); 
 	return name;
 }
@@ -84,6 +86,7 @@ void DecodeFunction(FILE *ofp, Pfunction function)
 	Paction action;
 	Pvariable variable;
 	Pblock *block = NULL;
+	char *currBlockName = (char*)malloc(sizeof(char) * 50);
 	char *assignment = (char*)malloc(sizeof(char) * 50);
 	char *prev = (char*)malloc(sizeof(char) * 50);	
 	char *curr = (char*)malloc(sizeof(char) * 50);
@@ -91,7 +94,7 @@ void DecodeFunction(FILE *ofp, Pfunction function)
 
 	int i;
 
-	for (i = 0; i < 4; ++i)
+	for (i = 0; i < 5; ++i)
 	{
 		ListPeekAt(&function.actions, &action, i);
 
@@ -107,13 +110,18 @@ void DecodeFunction(FILE *ofp, Pfunction function)
 				curr = GraphAssignment(ofp,assignment, "main", ListGetSize(&function.assignments));
 				ListRemoveFront(&function.assignments);
 				break;
-			// case BLOCK:
-			// 	ListPeekAt(&function.blocks, &block, 0);
-			// 	GraphVarInit(ofp, variable, "main", ListGetSize(&function.variables));
-			// 	ListRemoveFront(&function.variables);
-			// 	break;
+			case BLOCK:
+				block = (Pblock*)malloc(sizeof(Pblock));
+				ListPeekAt(&function.blocks, block, 0);
+				curr = currBlockName = GraphBlock(ofp, block, "main",ListGetSize(&function.blocks));
+				//ListRemoveFront(&function.variables);
+				break;
+			case BLOCKEND:
+				block = NULL;
+				break;
 		}
-		printf("%s->%s\n", prev,curr);
+
+		//printf("%s->%s\n", prev,curr);
 		AddConnection(prev,curr);
 		prev=curr;
 	}
