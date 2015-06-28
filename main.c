@@ -38,6 +38,19 @@ char* GraphAssignment(FILE *ofp, char *assignment, char *block, int counter)
 	return name;
 }
 
+char* GraphBlock(FILE *ofp, Pblock *blockStructure, char *block, int counter)
+{
+	char* name = (char*)malloc(sizeof(char) * 50); 
+	memset(name,'\0',sizeof(name)); 
+	//strcat(name, block); 
+	sprintf(name, "%s_block%d", block,counter);
+	fprintf(ofp, "subgraph if {rank = same; node[shape=diamond,color=skyblue3, label=\" %s \"]; %s",blockStructure->condition,name);
+	//strcat(name, counter); 
+	return name;
+}
+
+
+
 void AddConnection(char *element1, char *element2)
 {
 	connections[connectionsCount] = (char*)malloc(sizeof(char[50])); 
@@ -95,7 +108,7 @@ void DecodeFunction(FILE *ofp, Pfunction function)
 				ListRemoveFront(&function.assignments);
 				break;
 			// case BLOCK:
-			// 	ListPeekAt(&function.BLOCK, &variable, 0);
+			// 	ListPeekAt(&function.blocks, &block, 0);
 			// 	GraphVarInit(ofp, variable, "main", ListGetSize(&function.variables));
 			// 	ListRemoveFront(&function.variables);
 			// 	break;
