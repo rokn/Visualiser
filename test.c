@@ -7,5 +7,7 @@ int main() {
     if (a > b) {
     	a = 5;
     }
-
+    else{
+    	a = 6;
+    }
 }

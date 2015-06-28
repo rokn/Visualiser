@@ -19,7 +19,7 @@ char* GraphVarInit(FILE *ofp, Pvariable variable, char *block, int counter)
 	switch(variable.type)
 	{
 		case INT:
-			sprintf(name, "%s_int%d", block,counter); 
+			sprintf(name, "%s_int%d", block, counter); 
 			fprintf(ofp, "subgraph variable_int {node[shape=ellipse,color=pink4, label=\"int %s\"]; %s; }",variable.name, name); 			
 			break; 
 	}
@@ -33,7 +33,7 @@ char* GraphAssignment(FILE *ofp, char *assignment, char *block, int counter)
 	memset(name,'\0',sizeof(name)); 
 	//strcat(name, block); 
 	sprintf(name, "%s_assignment%d", block,counter);
-	fprintf(ofp, "subgraph variable_int {node[shape=ellipse,color=pink4, label=\"%s\"]; %s }",assignment,name);
+	fprintf(ofp, "subgraph variable_int {node[shape=ellipse,color=pink4, label=\"%s\"]; %s; }",assignment,name);
 	//strcat(name, counter); 
 	return name;
 }
@@ -43,8 +43,18 @@ char* GraphBlock(FILE *ofp, Pblock *blockStructure, char *block, int counter)
 	char* name = (char*)malloc(sizeof(char) * 50); 
 	memset(name,'\0',sizeof(name)); 
 	//strcat(name, block); 
-	sprintf(name, "%s_block%d", block,counter);
-	fprintf(ofp, "subgraph if {rank = same; node[shape=diamond,color=skyblue3, label=\" %s \"]; %s",blockStructure->condition,name);
+	sprintf(name, "%s_block%d", block, counter);
+	// printf("%s,%s,%d\n\n",name, block, counter);
+	printf("%s\n",name);
+
+	switch(blockStructure->blockType)
+	{
+		case IF:
+			fprintf(ofp, "subgraph if {rank = same; node[shape=diamond,color=skyblue3, label=\"%s\"]; %s;}",blockStructure->condition,name);
+			break;
+		case ELSE:
+			break;
+	}
 	//strcat(name, counter); 
 	return name;
 }
@@ -63,19 +73,21 @@ void AddConnection(char *element1, char *element2)
 
 int main() 
 {
-
 	char *filename = malloc(sizeof(char)*50); 
 	printf("Input filename :\n"); 
 	scanf("%s",filename); 
 	Pfunction function; 
-	ParseFile(filename,&function); 
-	generateDotFile(function); 
-	system("dot -Tpng graph.txt -o graph.png && eog graph.png"); 
-	// char assignment[50]; 
-	// Pblock block; 
-	// ListPeekAt(&function.blocks, &block, 0); 
-	// printf("%d\n",block.blockType); 
-	// ListPeekAt(&block.assignments, &assignment, 0); 
+	int result;
+	ParseFile(filename,&function, &result); 
+	if(result == 0){
+		generateDotFile(function); 
+		system("dot -Tpng graph.txt -o graph.png && eog graph.png"); 
+		// char assignment[50]; 
+		// Pblock block; 
+		// ListPeekAt(&function.blocks, &block, 0); 
+		// printf("%d\n",block.blockType); 
+		// ListPeekAt(&block.assignments, &assignment, 0); 
+	}
 	return 0; 
 }
 
@@ -84,6 +96,7 @@ void DecodeFunction(FILE *ofp, Pfunction function)
 	Paction action;
 	Pvariable variable;
 	Pblock *block = NULL;
+	char *currBlockName = (char*)malloc(sizeof(char) * 50);
 	char *assignment = (char*)malloc(sizeof(char) * 50);
 	char *prev = (char*)malloc(sizeof(char) * 50);	
 	char *curr = (char*)malloc(sizeof(char) * 50);
@@ -91,7 +104,7 @@ void DecodeFunction(FILE *ofp, Pfunction function)
 
 	int i;
 
-	for (i = 0; i < 4; ++i)
+	for (i = 0; i < 5; ++i)
 	{
 		ListPeekAt(&function.actions, &action, i);
 
@@ -107,13 +120,18 @@ void DecodeFunction(FILE *ofp, Pfunction function)
 				curr = GraphAssignment(ofp,assignment, "main", ListGetSize(&function.assignments));
 				ListRemoveFront(&function.assignments);
 				break;
-			// case BLOCK:
-			// 	ListPeekAt(&function.blocks, &block, 0);
-			// 	GraphVarInit(ofp, variable, "main", ListGetSize(&function.variables));
-			// 	ListRemoveFront(&function.variables);
-			// 	break;
+			case BLOCK:
+				block = (Pblock*)malloc(sizeof(Pblock));
+				ListPeekAt(&function.blocks, block, 0);
+				curr = currBlockName = GraphBlock(ofp, block, "main",ListGetSize(&function.blocks));
+				//ListRemoveFront(&function.variables);
+				break;
+			case BLOCKEND:
+				block = NULL;
+				break;
 		}
-		printf("%s->%s\n", prev,curr);
+
+		//printf("%s->%s\n", prev,curr);
 		AddConnection(prev,curr);
 		prev=curr;
 	}
