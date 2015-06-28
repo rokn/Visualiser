@@ -6,7 +6,7 @@ EXAMPLES:
 
 legend: 
 
-![bubble_sort_image](https://github.com/rokn/Visualiser/blob/master/Examples/legend.jpg)
+![legend](https://github.com/rokn/Visualiser/blob/master/Examples/legend.jpg)
 
 This is a bubble sort example:
 
@@ -14,8 +14,9 @@ This is a bubble sort example:
 
 And this is what a loop is supposed to be like:
 
-![bubble_sort_image](https://github.com/rokn/Visualiser/blob/master/Examples/loop_example.jpg)
+![loop example](https://github.com/rokn/Visualiser/blob/master/Examples/loop_example.jpg)
 
 And an example with an if/else algorithm:
 
-![bubble_sort_image](https://github.com/rokn/Visualiser/blob/master/Examples/if_else_example.jpg)
+![if/else example](https://github.com/rokn/Visualiser/blob/master/Examples/if_else_example.jpg)
+

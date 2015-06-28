@@ -1,0 +1,2 @@
+dot -Tpng dot_example.dot -o dot_example.png && eog dot_example.png
+

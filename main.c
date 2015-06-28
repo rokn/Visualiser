@@ -26,19 +26,19 @@ char* GraphVarInit(FILE *ofp, Pvariable variable, char *block, int counter)
 			break; 
 		case DOUBLE:
 			sprintf(name, "%s_double%d", block, counter); 
-			fprintf(ofp, "subgraph variable_double {node[shape=ellipse,color=pink4, label=\"double %s\"]; %s; }",variable.name, name); 			
+			fprintf(ofp, "subgraph variable_double {node[shape=ellipse,color=pink3, label=\"double %s\"]; %s; }",variable.name, name); 			
 			break; 
 		case LONG:
 			sprintf(name, "%s_long%d", block, counter); 
-			fprintf(ofp, "subgraph variable_long {node[shape=ellipse,color=pink4, label=\"long %s\"]; %s; }",variable.name, name); 			
+			fprintf(ofp, "subgraph variable_long {node[shape=ellipse,color=pink2, label=\"long %s\"]; %s; }",variable.name, name); 			
 			break; 
 		case FLOAT:
 			sprintf(name, "%s_float%d", block, counter); 
-			fprintf(ofp, "subgraph variable_float {node[shape=ellipse,color=pink4, label=\"float %s\"]; %s; }",variable.name, name); 			
+			fprintf(ofp, "subgraph variable_float {node[shape=ellipse,color=pink1, label=\"float %s\"]; %s; }",variable.name, name); 			
 			break; 
 		case CHAR:
 			sprintf(name, "%s_char%d", block, counter); 
-			fprintf(ofp, "subgraph variable_char {node[shape=ellipse,color=pink4, label=\"char %s\"]; %s; }",variable.name, name); 			
+			fprintf(ofp, "subgraph variable_char {node[shape=ellipse,color=pink, label=\"char %s\"]; %s; }",variable.name, name); 			
 			break; 
 	}
 	//strcat(name, counter); 
@@ -204,6 +204,7 @@ void DecodeFunction(FILE *ofp, Pfunction function)
 					}
 					AddConnection(prev,curr,1);
 					prev=curr;
+					
 				}
 				else
 				{
@@ -251,8 +252,13 @@ void DecodeFunction(FILE *ofp, Pfunction function)
 				endBlock = true;
 				break;
 		}
-		AddConnection(prev,curr,0);
-		prev=curr;
+		if(strcmp(prev,curr))
+		{
+			AddConnection(prev,curr,0);
+			prev=curr;
+		}
+			
+		
 	}
 	if(endBlock)
 	{

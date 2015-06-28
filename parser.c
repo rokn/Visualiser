@@ -251,7 +251,8 @@ Pfunction ParseFile(const char *filename, Pfunction *function,int *result)
 					}
 				}
 				else if(isAssignment(currentToken))
-				{				
+				{
+					currentToken[strlen(currentToken) - 1] = '\0';				
 					if(block != NULL)
 					{
 						ListAdd(&block->assignments, &currentToken);					

@@ -7,7 +7,7 @@ int main() {
 
     if(a > max)
     {
-    	a = max;    	
+    	a = max;
     }
 
     if(b > max)
@@ -18,8 +18,7 @@ int main() {
     if(c > max)
     {
     	c = max;
+    	c = max;
     }
-
-
     a = 6;
 }
