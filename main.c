@@ -63,7 +63,6 @@ int main()
 	// ListPeekAt(&function.blocks, &block, 0); 
 	// printf("%d\n",block.blockType); 
 	// ListPeekAt(&block.assignments, &assignment, 0); 
-	// printf("%s\n",assignment);
 	return 0; 
 }
 
