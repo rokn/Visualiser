@@ -177,7 +177,7 @@ Pfunction ParseFile(const char *filename, Pfunction *function)
 					char assignment[50];
 					resetString(assignment);
 					strcat(assignment, variable.name);
-					strcat(assignment, " = ");
+					strcat(assignment, "=");
 					i++;
 
 					while(contents[i]!=';')
