@@ -1,11 +1,12 @@
 int main() {
-    int a = 5;
-    int b;
+    int a = 10;
+    int b = 15;
+    int c = 9;
+    int max = 0;
 
-    b=5;
-    
-    if (a > b) {
-    	a = 5;
+    if(a > max)
+    {
+    	a = max;
     }
 
 }

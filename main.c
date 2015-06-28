@@ -33,7 +33,7 @@ char* GraphAssignment(FILE *ofp, char *assignment, char *block, int counter)
 	memset(name,'\0',sizeof(name)); 
 	//strcat(name, block); 
 	sprintf(name, "%s_assignment%d", block,counter);
-	fprintf(ofp, "subgraph variable_int {node[shape=ellipse,color=pink4, label=\"%s\"]; %s; }",assignment,name);
+	fprintf(ofp, "subgraph action{node[shape=box, fillcolor=\"limegreen\",style=\"filled,rounded\" , label=\"%s\"]; %s}",assignment,name);
 	//strcat(name, counter); 
 	return name;
 }
@@ -45,7 +45,6 @@ char* GraphBlock(FILE *ofp, Pblock *blockStructure, char *block, int counter)
 	//strcat(name, block); 
 	sprintf(name, "%s_block%d", block,counter);
 	// printf("%s,%s,%d\n\n",name, block, counter);
-	printf("%s\n",name);
 	fprintf(ofp, "subgraph if {rank = same; node[shape=diamond,color=skyblue3, label=\"%s\"]; %s;}",blockStructure->condition,name);
 	//strcat(name, counter); 
 	return name;
@@ -53,13 +52,27 @@ char* GraphBlock(FILE *ofp, Pblock *blockStructure, char *block, int counter)
 
 
 
-void AddConnection(char *element1, char *element2)
+void AddConnection(char *element1, char *element2, int ifcolor)
 {
-	connections[connectionsCount] = (char*)malloc(sizeof(char[50])); 
+	
+	connections[connectionsCount] = (char*)malloc(sizeof(char[100]));
+	resetString(connections[connectionsCount]);
 	strcat(connections[connectionsCount],element1); 
 	strcat(connections[connectionsCount],"->");
 	strcat(connections[connectionsCount],element2);
-	strcat(connections[connectionsCount],";");  
+	if(ifcolor)
+	{
+		switch(ifcolor)
+		{
+			case 1:
+				strcat(connections[connectionsCount],"[label = \" true\" , fontcolor = \" green\", color=\"green\"]");
+				break;
+			case 2:
+				strcat(connections[connectionsCount],"[label = \" false\" , fontcolor = \" red\", color=\"red\"]");
+				break;
+		}
+	}
+	strcat(connections[connectionsCount],";");	
 	connectionsCount++; 
 }
 
@@ -86,46 +99,108 @@ void DecodeFunction(FILE *ofp, Pfunction function)
 	Paction action;
 	Pvariable variable;
 	Pblock *block = NULL;
+	bool endBlock=false;
 	char *currBlockName = (char*)malloc(sizeof(char) * 50);
 	char *assignment = (char*)malloc(sizeof(char) * 50);
 	char *prev = (char*)malloc(sizeof(char) * 50);	
 	char *curr = (char*)malloc(sizeof(char) * 50);
+	currBlockName = "main";
 	prev = "start";
 
-	int i;
+	int i,b;
 
-	for (i = 0; i < 5; ++i)
+	for (i = 0; i < ListGetSize(&function.actions); ++i)
 	{
 		ListPeekAt(&function.actions, &action, i);
-
 		switch(action)
 		{
 			case INITVAR:
 				ListPeekAt(&function.variables, &variable, 0);
 				curr = GraphVarInit(ofp, variable, "main", ListGetSize(&function.variables));
-				ListRemoveFront(&function.variables);				
+				ListRemoveFront(&function.variables);
+				if(endBlock)
+				{
+					AddConnection(currBlockName,curr,2);
+					endBlock = false;
+				}			
 				break;
 			case ASSIGNMENT:
+
 				ListPeekAt(&function.assignments, assignment, 0);
 				curr = GraphAssignment(ofp,assignment, "main", ListGetSize(&function.assignments));
 				ListRemoveFront(&function.assignments);
+				if(endBlock)
+				{
+					endBlock = false;
+					AddConnection(currBlockName,curr,2);
+				}
 				break;
 			case BLOCK:
 				block = (Pblock*)malloc(sizeof(Pblock));
 				ListPeekAt(&function.blocks, block, 0);
-				curr = currBlockName = GraphBlock(ofp, block, "main",ListGetSize(&function.blocks));
-				//ListRemoveFront(&function.variables);
+				curr = GraphBlock(ofp, block, "main",ListGetSize(&function.blocks));
+				if(endBlock)
+				{
+					AddConnection(currBlockName,curr,2);
+					endBlock = false;
+				}
+				currBlockName  = curr;
+
+				AddConnection(prev,curr,0);
+				prev=curr;
+				for (b = 0; b < ListGetSize(&block->actions); ++b)
+				{
+					ListPeekAt(&function.actions, &action, i);		
+					switch(action)
+					{
+						case INITVAR:
+							ListPeekAt(&block->variables, &variable, 0);
+							curr = GraphVarInit(ofp, variable, "if", ListGetSize(&block->variables));
+							ListRemoveFront(&block->variables);				
+							break;
+						case ASSIGNMENT:
+							ListPeekAt(&block->assignments, assignment, 0);
+							
+							curr = GraphAssignment(ofp,assignment, "if", ListGetSize(&block->assignments));
+							ListRemoveFront(&block->assignments);
+							break;
+						case BLOCK:
+							ListPeekAt(&block->assignments, assignment, 0);
+							
+							curr = GraphAssignment(ofp,assignment, "if", ListGetSize(&block->assignments));
+							ListRemoveFront(&block->assignments);
+							break;
+					}
+					if(b==0)
+					{
+						AddConnection(prev,curr,1);
+						prev=curr;
+						continue;
+					}
+					if(b < ListGetSize(&block->actions) -1)
+					{
+						AddConnection(prev,curr,0);
+						prev=curr;
+					}
+				}
+
+				ListRemoveFront(&function.blocks);
+				continue;
 				break;
 			case BLOCKEND:
 				block = NULL;
+				endBlock = true;
 				break;
 		}
-
-		//printf("%s->%s\n", prev,curr);
-		AddConnection(prev,curr);
+		AddConnection(prev,curr,0);
 		prev=curr;
 	}
-	AddConnection(prev,"end");
+	if(endBlock)
+	{
+		endBlock = false;
+		AddConnection(currBlockName,"end",2);
+	}
+	AddConnection(prev,"end",0);
 }
 
 void generateDotFile(Pfunction function)
