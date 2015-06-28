@@ -1,0 +1,90 @@
+digraph G{	
+	graph [bgcolor=black];
+	edge [color=white];
+	graph[page="8.5,11",size="7.5,7", ratio=fill, center=1];
+	node[style=filled,label=""];
+	subgraph start {
+		rank = same;
+		node[shape = invtrapezium, fillcolor= "yellow" , label="START" , style = " filled, rounded"];
+		start;
+	}
+//masiv
+	subgraph input {
+		node[shape=pentagon,color=greenyellow, label="input n"];
+		input1;
+		input2 [label="A[counter]...,A[n]"];
+	}
+//if
+	subgraph if {
+		rank = same;
+		node[shape=diamond,color=skyblue3, label="counter<=n"];
+		if1;
+		node[label="y=n-1"];
+		if2;
+		node [label="x=n"]; 
+		if3;
+		node [label="A[counter]>A[counter+1"]; 
+		if4;
+	}
+//int
+	subgraph variable_int {
+		node [shape=ellipse,color=pink2, label="int x=0"];
+		variable_int1;
+		node [label="int counter=1"];
+		variable_int2;
+		node[label="int n"];
+		variable_int3;
+		node[label="int k=1"];
+		variable_int4;
+		node[label="int y=0"];
+		variable_int5;
+	}
+//action
+	subgraph action {
+		node [label="exchange A[counter] and A[counter+1]"]; 
+		action1;
+		node [label="x++"]; 
+		action2;
+		node [label="counter++"]; 
+		action3;
+		node [label="y++"]; 
+		action4;
+	}
+//output
+	subgraph output {
+		rank = same;
+		node[shape=octagon, color="red3", label="A"];
+		output1;
+	}
+//end
+	subgraph end {
+		rank = same;
+		node[shape = trapezium, fillcolor= "yellow" , label="END" , style = "filled, rounded" ];
+		end;
+	}
+//->
+	subgraph{
+		start -> variable_int3;
+		variable_int3 -> input1;
+		input1 -> variable_int2;
+		variable_int2 -> if1;
+		if1 -> input2               [label = " true" , fontcolor = " green", color="green"];
+		input2 -> if1               [fontcolor = " green", color="green"];
+		if1 -> variable_int1    [label = " false", fontcolor = "red", color="red"];
+		variable_int1 -> if3    [fontcolor = "red", color="red"];
+		if3 -> variable_int4    [label = " false", fontcolor = "red", color="red"];
+		variable_int4 -> variable_int5  [fontcolor = "red", color="red"];
+		variable_int5 -> if2    [fontcolor = "red", color="red"];
+		if2 -> action2             [label = " true" , fontcolor = " green", color="green"];
+		action2 -> if3             [color="green"];
+		if3 -> output1            [label = " true" , fontcolor = " green", color="green"];
+		output1 -> end          [color="green"];
+		if3 -> if4                     [label = " false", fontcolor = "red", color="red"];
+		if4 -> action1             [label = " true" , fontcolor = " green", color="green"];
+		action1 -> action3     [color="green"];
+		action3 -> action4     [color="green"];
+		action4 -> if2             [color="green"];
+		if2 -> if4                     [label = " false", fontcolor = "red", color="red"];
+		if4 -> action3             [label = " false", fontcolor = "red", color="red"];
+	}
+}

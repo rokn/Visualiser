@@ -175,7 +175,6 @@ void DecodeFunction(FILE *ofp, Pfunction function)
 					endBlock = false;
 				}
 				currBlockName  = curr;
-				printf("curr:%s\n",currBlockName);
 				// sprintf(currBlockName,"%d",)
 
 				AddConnection(prev,curr,0);
