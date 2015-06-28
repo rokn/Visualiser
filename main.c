@@ -31,7 +31,7 @@ void AddConnection(char *element1, char *element2)
 {
 	connections[connectionsCount] = (char*)malloc(sizeof(char[50])); 
 	strcat(connections[connectionsCount],element1); 
-	strcat(connections[connectionsCount],"->"); 
+	strcat(connections[connectionsCount]," -> "); 
 	strcat(connections[connectionsCount],element2); 
 	connectionsCount++; 
 }
