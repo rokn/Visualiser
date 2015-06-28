@@ -23,6 +23,7 @@ typedef enum {
 
 typedef enum {
 	IF,
+	ELSE,
 	SWITCH,
 	WHILE,
 	FOR,
@@ -56,6 +57,6 @@ typedef struct {
 	bool isMain;
 }Pfunction;
 
-Pfunction ParseFile(const char *filename,Pfunction *);
+Pfunction ParseFile(const char *filename,Pfunction*, int*);
 
 #endif

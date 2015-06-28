@@ -8,5 +8,5 @@ int main() {
     {
     	a = max;
     }
-
+    a = 6;
 }
