@@ -10,7 +10,7 @@ legend:
 
 This is a bubble sort example:
 
-![bubble_sort_image](https://github.com/rokn/Visualiser/blob/master/Examples/bubble_sort_example.jpg)
+![bubble_sort_image](https://github.com/rokn/Visualiser/blob/master/Examples/bubble_sort_example.png)
 
 And this is what a loop is supposed to be like:
 
