@@ -79,7 +79,7 @@ int main()
 	Pfunction function; 
 	int result;
 	ParseFile(filename,&function, &result); 
-	if(result == 0){
+	if(result == 0){ //returns if file exists
 		generateDotFile(function); 
 		system("dot -Tpng graph.txt -o graph.png && eog graph.png"); 
 		// char assignment[50]; 
