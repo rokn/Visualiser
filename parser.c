@@ -237,9 +237,11 @@ Pfunction ParseFile(const char *filename, Pfunction *function)
 				}
 			}
 			else if(isAssignment(currentToken))
-			{				
+			{	
+				currentToken[strlen(currentToken)] = "";
+
 				if(block != NULL)
-				{					
+				{
 					ListAdd(&block->assignments, &currentToken);					
 					action = ASSIGNMENT;
 					ListAdd(&block->actions, &action);					
