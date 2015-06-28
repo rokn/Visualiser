@@ -1,5 +1,7 @@
 #include "List.h"
 #include "parser.h"
+#include <stdlib.h>
+#include <time.h>
 
 void generateDotFile(Pfunction); 
 
@@ -21,6 +23,22 @@ char* GraphVarInit(FILE *ofp, Pvariable variable, char *block, int counter)
 		case INT:
 			sprintf(name, "%s_int%d", block, counter); 
 			fprintf(ofp, "subgraph variable_int {node[shape=ellipse,color=pink4, label=\"int %s\"]; %s; }",variable.name, name); 			
+			break; 
+		case DOUBLE:
+			sprintf(name, "%s_double%d", block, counter); 
+			fprintf(ofp, "subgraph variable_double {node[shape=ellipse,color=pink4, label=\"double %s\"]; %s; }",variable.name, name); 			
+			break; 
+		case LONG:
+			sprintf(name, "%s_long%d", block, counter); 
+			fprintf(ofp, "subgraph variable_long {node[shape=ellipse,color=pink4, label=\"long %s\"]; %s; }",variable.name, name); 			
+			break; 
+		case FLOAT:
+			sprintf(name, "%s_float%d", block, counter); 
+			fprintf(ofp, "subgraph variable_float {node[shape=ellipse,color=pink4, label=\"float %s\"]; %s; }",variable.name, name); 			
+			break; 
+		case CHAR:
+			sprintf(name, "%s_char%d", block, counter); 
+			fprintf(ofp, "subgraph variable_char {node[shape=ellipse,color=pink4, label=\"char %s\"]; %s; }",variable.name, name); 			
 			break; 
 	}
 	//strcat(name, counter); 
@@ -107,6 +125,7 @@ int main()
 
 void DecodeFunction(FILE *ofp, Pfunction function)
 {
+	srand(time(NULL));
 	Paction action;
 	Pvariable variable;
 	Pblock *block = NULL;
@@ -156,9 +175,39 @@ void DecodeFunction(FILE *ofp, Pfunction function)
 					endBlock = false;
 				}
 				currBlockName  = curr;
+				printf("curr:%s\n",currBlockName);
+				// sprintf(currBlockName,"%d",)
 
 				AddConnection(prev,curr,0);
 				prev=curr;
+				if(ListGetSize(&block->actions) == 1)
+				{
+					ListPeekAt(&function.actions, &action, i);		
+					switch(action)
+					{
+						case INITVAR:
+							ListPeekAt(&block->variables, &variable, 0);
+							curr = GraphVarInit(ofp, variable, currBlockName, ListGetSize(&block->variables));
+							ListRemoveFront(&block->variables);				
+							break;
+						case ASSIGNMENT:
+							ListPeekAt(&block->assignments, assignment, 0);
+							
+							curr = GraphAssignment(ofp,assignment, currBlockName, ListGetSize(&block->assignments));
+							ListRemoveFront(&block->assignments);
+							break;
+						case BLOCK:
+							ListPeekAt(&block->assignments, assignment, 0);
+							
+							curr = GraphAssignment(ofp,assignment, currBlockName, ListGetSize(&block->assignments));
+							ListRemoveFront(&block->assignments);
+							break;
+					}
+					AddConnection(prev,curr,1);
+					prev=curr;
+				}
+				else
+				{
 				for (b = 0; b < ListGetSize(&block->actions); ++b)
 				{
 					ListPeekAt(&function.actions, &action, i);		
@@ -166,19 +215,19 @@ void DecodeFunction(FILE *ofp, Pfunction function)
 					{
 						case INITVAR:
 							ListPeekAt(&block->variables, &variable, 0);
-							curr = GraphVarInit(ofp, variable, "if", ListGetSize(&block->variables));
+							curr = GraphVarInit(ofp, variable, currBlockName, ListGetSize(&block->variables));
 							ListRemoveFront(&block->variables);				
 							break;
 						case ASSIGNMENT:
 							ListPeekAt(&block->assignments, assignment, 0);
 							
-							curr = GraphAssignment(ofp,assignment, "if", ListGetSize(&block->assignments));
+							curr = GraphAssignment(ofp,assignment, currBlockName, ListGetSize(&block->assignments));
 							ListRemoveFront(&block->assignments);
 							break;
 						case BLOCK:
 							ListPeekAt(&block->assignments, assignment, 0);
 							
-							curr = GraphAssignment(ofp,assignment, "if", ListGetSize(&block->assignments));
+							curr = GraphAssignment(ofp,assignment, currBlockName, ListGetSize(&block->assignments));
 							ListRemoveFront(&block->assignments);
 							break;
 					}
@@ -193,8 +242,8 @@ void DecodeFunction(FILE *ofp, Pfunction function)
 						AddConnection(prev,curr,0);
 						prev=curr;
 					}
-				}
-
+				}				
+			}
 				ListRemoveFront(&function.blocks);
 				continue;
 				break;
