@@ -113,7 +113,7 @@ int main()
 	ParseFile(filename,&function, &result); 
 	if(result == 0){ //returns if file exists
 		generateDotFile(function); 
-		system("dot -Tpng graph.txt -o graph.png && eog graph.png"); 
+		system("dot -Tpng graph.dot -o graph.png && eog graph.png"); 
 		// char assignment[50]; 
 		// Pblock block; 
 		// ListPeekAt(&function.blocks, &block, 0); 
@@ -270,7 +270,7 @@ void DecodeFunction(FILE *ofp, Pfunction function)
 
 void generateDotFile(Pfunction function)
 {
-	FILE *ofp = fopen("graph.txt", "w"); 
+	FILE *ofp = fopen("graph.dot", "w"); 
 	fprintf(ofp, "%s", header); 
 	DecodeFunction(ofp,function); 
 	fprintf(ofp, "%s", graphs); 
