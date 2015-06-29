@@ -1,1 +1,1 @@
-dot -Tpng graph.txt -o graph.png && eog graph.png
+dot -Tpng dot_example.dot -o dot_example.png && eog dot_example.png

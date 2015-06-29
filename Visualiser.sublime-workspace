@@ -115,23 +115,7 @@
 			"file": "main.c",
 			"settings":
 			{
-				"buffer_size": 8472,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "README.md",
-			"settings":
-			{
-				"buffer_size": 661,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "Examples/dot_example.dot",
-			"settings":
-			{
-				"buffer_size": 2712,
+				"buffer_size": 8518,
 				"line_ending": "Unix"
 			}
 		},
@@ -139,31 +123,31 @@
 			"file": "graph.txt",
 			"settings":
 			{
-				"buffer_size": 2990,
+				"buffer_size": 3007,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "log.txt",
+			"file": "test1.c",
 			"settings":
 			{
-				"buffer_size": 0,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "test.c",
-			"settings":
-			{
-				"buffer_size": 232,
+				"buffer_size": 239,
 				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "README.md",
+			"settings":
+			{
+				"buffer_size": 645,
+				"line_ending": "Unix"
 			}
 		},
 		{
 			"file": "parser.c",
 			"settings":
 			{
-				"buffer_size": 6483,
+				"buffer_size": 6535,
 				"line_ending": "Unix"
 			}
 		},
@@ -246,12 +230,19 @@
 	],
 	"file_history":
 	[
+		"/home/niki/Documents/C/Visualiser/Examples/dot_example_command.txt~",
+		"/home/niki/Documents/C/Visualiser/test4.c",
+		"/home/niki/Documents/C/Visualiser/test.c",
+		"/home/niki/Documents/C/Visualiser/test2.c",
+		"/home/niki/Documents/C/Visualiser/test3.c",
+		"/home/niki/Documents/C/Visualiser/log.txt",
+		"/home/niki/Documents/C/Visualiser/Examples/dot_example.dot",
+		"/home/niki/Documents/C/Visualiser/README.md",
 		"/home/niki/Documents/C/Clang/main.c",
 		"/home/niki/Documents/C/Clang/makefile",
 		"/home/niki/Documents/C/Visualiser/parser.c",
 		"/home/niki/Documents/C/Visualiser/parser.h",
 		"/home/niki/Documents/C/Visualiser/main.c",
-		"/home/niki/Documents/C/Visualiser/test.c",
 		"/home/niki/Documents/C/Visualiser/List.h",
 		"/home/niki/Documents/C/Visualiser/List.c",
 		"/home/nikolay/Desktop/Pesho/test.c",
@@ -338,7 +329,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 1,
 			"sheets":
 			[
 				{
@@ -347,15 +338,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 8472,
+						"buffer_size": 8518,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3821,
-								3821
+								7999,
+								7999
 							]
 						],
 						"settings":
@@ -363,76 +354,25 @@
 							"syntax": "Packages/C++/C++.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 1581.0,
+						"translation.y": 2746.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 1,
 					"type": "text"
+				},
+				{
+					"file": "Examples/dot_example.png",
+					"semi_transient": true,
+					"stack_index": 0,
+					"type": "image"
 				},
 				{
 					"buffer": 1,
-					"file": "README.md",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 661,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								656,
-								656
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Markdown/Markdown.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 45.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "Examples/dot_example.dot",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2712,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2712,
-								2712
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Graphviz/DOT.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": -0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
 					"file": "graph.txt",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2990,
+						"buffer_size": 3007,
 						"regions":
 						{
 						},
@@ -446,6 +386,36 @@
 						"settings":
 						{
 							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "test1.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 239,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								65,
+								65
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -455,76 +425,48 @@
 					"type": "text"
 				},
 				{
+					"buffer": 3,
+					"file": "README.md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 645,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								362,
+								362
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Markdown/Markdown.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
 					"buffer": 4,
-					"file": "log.txt",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 0,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "test.c",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 232,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								118,
-								118
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 7,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
 					"file": "parser.c",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 6483,
+						"buffer_size": 6535,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1560,
-								1560
+								277,
+								277
 							]
 						],
 						"settings":
@@ -533,14 +475,14 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1496.0,
+						"translation.y": 4284.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 2,
 					"type": "text"
 				},
 				{
-					"buffer": 7,
+					"buffer": 5,
 					"file": "parser.h",
 					"semi_transient": false,
 					"settings":
@@ -562,7 +504,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 510.0,
+						"translation.y": 350.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 6,
